@@ -28,7 +28,10 @@ shared_ptr<accelerator_t> system_t::choose_one_accelerator(const bool parallel) 
         uint32_t system_time = 0;
         uint32_t accelerator_time = fpga->p;
         for (auto c : computations) {
-            if (c->accelerators.find(a) != c->accelerators.end()) { // if computation can use accelerator
+            if (
+                (c->accelerators.find(a) != c->accelerators.end())
+                && (c->accelerator_setup_time(a)+c->accelerator_setup_time(a) < c->accelerator_computation_time(a))
+            ) { // if computation can/should use accelerator
                 accelerator_time += c->accelerator_setup_time(a);
                 system_time += c->accelerator_setup_time(a);
                 accelerator_time += c->accelerator_computation_time(a);
