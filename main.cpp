@@ -55,10 +55,11 @@ int main() {
 
     system_t s{
         .fpga = fpga,
-        .computations = {c0, c1, c2}
+        .computations = {c0, c1, c2},
+        .accelerators = {a0, a1, a2}
     };
 
-    auto a = s.choose_one_accelerator(false);
+    auto a = s.choose_max_speedup(false);
     if (a)
         cout << a->name << " chosen" << endl;
     else

@@ -11,26 +11,19 @@ bool __compare__shared_ptr_computation(shared_ptr<computation_t> l, shared_ptr<c
 }
 
 
-shared_ptr<accelerator_t> system_t::choose_one_accelerator(const bool parallel) const {
-
-    unordered_set< shared_ptr<accelerator_t> > accels;
-    for (auto c : computations)
-        for (auto a : c->accelerators)
-            accels.insert(a);
+shared_ptr<accelerator_t> system_t::choose_max_speedup(const bool parallel) const {
 
     shared_ptr<accelerator_t> out = 0;
     double max_speedup = 1.0;
 
-    cout << accels.size() << endl;
-
-    for (auto a : accels) { // for every accelerator
+    for (auto a : accelerators) { // for every accelerator
         uint32_t homogenious_time = 0;
         uint32_t system_time = 0;
         uint32_t accelerator_time = fpga->p;
         for (auto c : computations) {
             if (
                 (c->accelerators.find(a) != c->accelerators.end())
-                && (c->accelerator_setup_time(a)+c->accelerator_setup_time(a) < c->accelerator_computation_time(a))
+                && (c->accelerator_setup_time(a) < c->system_time())
             ) { // if computation can/should use accelerator
                 accelerator_time += c->accelerator_setup_time(a);
                 system_time += c->accelerator_setup_time(a);
