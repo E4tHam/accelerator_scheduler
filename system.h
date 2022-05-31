@@ -15,7 +15,7 @@ struct system_t {
     shared_ptr<fpga_t> fpga;
     std::unordered_set< std::shared_ptr<computation_t> > computations;
     std::unordered_set< std::shared_ptr<accelerator_t> > accelerators;
-    shared_ptr<accelerator_t> choose_max_speedup(const bool parallel=true) const;
+    shared_ptr<accelerator_t> choose_max_speedup() const;
 };
 
 #endif

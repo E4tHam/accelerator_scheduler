@@ -59,7 +59,7 @@ int main() {
         .accelerators = {a0, a1, a2}
     };
 
-    auto a = s.choose_max_speedup(false);
+    auto a = s.choose_max_speedup();
     if (a)
         cout << a->name << " chosen" << endl;
     else
