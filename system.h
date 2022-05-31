@@ -16,6 +16,7 @@ struct system_t {
     std::unordered_set< std::shared_ptr<computation_t> > computations;
     std::unordered_set< std::shared_ptr<accelerator_t> > accelerators;
     shared_ptr<accelerator_t> choose_max_speedup() const;
+    shared_ptr<accelerator_t> choose_highest_priority() const;
 };
 
 #endif

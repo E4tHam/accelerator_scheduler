@@ -19,6 +19,7 @@ struct computation_t {
     const uint32_t cs; // system computational index
     const std::unordered_set< std::shared_ptr<accelerator_t> > accelerators;
     const std::shared_ptr<fpga_t> fpga;
+    const std::string name;
 
     class InvalidAccelerator { };
     uint32_t accelerator_computation_time(const std::shared_ptr<accelerator_t> a) const {
